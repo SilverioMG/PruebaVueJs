@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prueba VueJs</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" class="container">
+        <h1 v-text="message"></h1>
+        <input type="text" v-model="message"/>
+        <h1 v-text="val"></h1> <!--Binding One Way => '<h1>{{val}}</h1>'-->
+        <input type="number" v-model.number="val"/> <!--Binding Two Way (indicando que la variable del ViewModel es de tipo numérico sino por defecto se asigna un 'string' desde la 'View' hacia el 'ViewModel'.-->
+        <input type="button" v-bind:value="buttonValue" class="btn btn-success" v-on:click="guardar" v-on:keyup.enter="clearInputs"> <!--Event--> <!--Binding One Way-->
+
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <table class="table" v-if="values.length > 0"> <!--Visibility-->
+                    <tr>
+                        <th>Messages:</th>
+                        <th>Values:</th>
+                        <th>Acciones:</th>
+                    </tr>
+                    <tr v-for="(value, ind) in values" v-bind:class="(value.val>=5) ? 'greenColor' : 'redColor'"> <!--v-bind:style="(value.val>=5) ? 'color:green' : 'color:red'"--> <!--Loop--> <!--Binding One Way-->
+                        <td v-text="ind +  ' - ' + value.message"></td>
+                        <td v-text=value.val></td>
+                        <td>
+                            <button class="btn btn-danger" v-on:click="eliminar(ind)">X</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <td v-text=total></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/vuejs/vue.js"></script> <!--Cambiar para producción.-->
+<script src="main.js"></script>
+</html>
